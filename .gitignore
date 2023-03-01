@@ -1,0 +1,23 @@
+# Build
+**/.DS_Store
+*.bzlc
+.clangd
+.clwb/
+/.cache
+/bazel-*
+/build
+bazel.output.txt
+compile_commands.json
+explain.log
+user.bazelrc
+
+# IDE
+.idea/
+.vimrc
+.vs
+.vscode
+*~
+**/*.iml
+
+/node_modules
+package-lock.json

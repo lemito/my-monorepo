@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package io.bazel.rules.closure.soy;
+
+message Person {
+  string name = 1;
+}

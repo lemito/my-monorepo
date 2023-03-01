@@ -1,0 +1,15 @@
+{namespace io.bazel.rules.closure.soy.greeter2}
+
+
+/**
+ * Greets a person.
+ */
+{template .greet}
+  {@param name: string}
+
+  {call io.bazel.rules.closure.soy.greeter.greet}
+    {param name kind="text"}
+      {$name}
+    {/param}
+  {/call}
+{/template}
