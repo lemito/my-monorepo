@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "meta.sapling-scm",
+        "rajivshah01234.make-runner",
+        "ms-vscode.cpptools-extension-pack",
+        "stackbuild.bazel-stack-vscode",
+        "stackbuild.bazel-stack-vscode-cc",
+        "stackbuild.bazel-stack-vscode-closure"
+    ]
+}

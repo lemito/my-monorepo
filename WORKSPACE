@@ -118,3 +118,27 @@ git_repository(
 setup_web_test_repositories(
     chromium = True,
 )'''
+
+http_archive(
+    name = "rules_rust",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.16.1/rules_rust-v0.16.1.tar.gz"],
+)
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repositories", "rust_repository_set")
+
+rules_rust_dependencies()
+
+rust_register_toolchains(
+    edition = "2021",
+    versions = [
+        "1.66.1"
+    ],
+)
+
+register_execution_platforms(
+    ":x64_linux-clang-cl"
+)
+
+'''register_toolchains(
+    "@local_config_cc//:cc-toolchain-x64_linux-clang-cl",
+)'''

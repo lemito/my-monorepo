@@ -1,0 +1,9 @@
+{
+    "comment1": "эти папки были добавлены случайно и их в окне редактора можно не отображать",
+    "files.exclude": {
+        "closure*": true,
+        "java": true,
+        "javatests": true
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
