@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-all": "bazel build //...",
-    "buildifie": "buildifier -r ./"
+    "buildifie": "buildifier -r ./",
+    "bclean": "bazel clean"
   },
   "repository": {
     "type": "git",

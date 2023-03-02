@@ -1,5 +1,7 @@
 all:
 	bazel build //sources/app:app
+bazel-clean:
+	bazel clean
 run-a:
 	bazel run //sources/app:app
 greet_l:
