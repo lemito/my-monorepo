@@ -48,18 +48,19 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies", "go_download_sdk")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
-############################################################
-# Define your own dependencies here using go_repository.
-# Else, dependencies declared by rules_go/gazelle will be used.
-# The first declaration of an external repository "wins".
-############################################################
+go_download_sdk(
+    name = "go_sdk",
+    version = "1.17.7",
+    goos = "linux",
+    goarch = "amd64",
+)
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.19.5")
+go_register_toolchains()
 
 gazelle_dependencies()
 
@@ -119,26 +120,68 @@ setup_web_test_repositories(
     chromium = True,
 )'''
 
+#=================#
+#=====Rust========#
+#=================#
+
 http_archive(
     name = "rules_rust",
     urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.16.1/rules_rust-v0.16.1.tar.gz"],
 )
 
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repositories", "rust_repository_set")
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
 
 rules_rust_dependencies()
 
-rust_register_toolchains(
-    edition = "2021",
-    versions = [
-        "1.66.1"
+rust_register_toolchains()
+
+#=================#
+#=====Go==========#
+#=================#
+'''http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "56d8c5a5c91e1af73eca71a6fab2ced959b67c86d12ba37feedb0a2dfea441a6",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
     ],
 )
 
-register_execution_platforms(
-    ":x64_linux-clang-cl"
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "448e37e0dbf61d6fa8f00aaa12d191745e14f07c31cabfa731f0c8e8a4f41b97",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
+    ],
 )
 
-'''register_toolchains(
-    "@local_config_cc//:cc-toolchain-x64_linux-clang-cl",
-)'''
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies", "go_download_sdk")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+go_download_sdk(
+    name = "go_sdk",
+    goos = "linux",
+    goarch = "amd64",
+    version = "1.18.1",
+    sdks = {
+        # NOTE: In most cases the whole sdks attribute is not needed.
+        # There are 2 "common" reasons you might want it:
+        #
+        # 1. You need to use an modified GO SDK, or an unsupported version
+        #    (for example, a beta or release candidate)
+        #
+        # 2. You want to avoid the dependency on the index file for the
+        #    SHA-256 checksums. In this case, You can get the expected
+        #    filenames and checksums from https://go.dev/dl/
+        "linux_amd64": ("go1.18.1.linux-amd64.tar.gz", "b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334"),
+        "darwin_amd64": ("go1.18.1.darwin-amd64.tar.gz", "3703e9a0db1000f18c0c7b524f3d378aac71219b4715a6a4c5683eb639f41a4d"),
+    },
+)
+
+go_rules_dependencies()
+
+go_register_toolchains(go_version = "1.18.1")
+
+gazelle_dependencies()
+'''
