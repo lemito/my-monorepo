@@ -8,14 +8,3 @@ build --incompatible_enable_cc_toolchain_resolution
 
 run --color=yes
 build --color=yes
-
-build --@rules_rust//rust/toolchain/channel=nightly
-
-
-# Enable rustfmt for all targets in the workspace
-build:rustfmt --aspects=@rules_rust//rust:defs.bzl%rustfmt_aspect
-build:rustfmt --output_groups=+rustfmt_checks
-
-# Enable clippy for all targets in the workspace
-build:clippy --aspects=@rules_rust//rust:defs.bzl%rust_clippy_aspect
-build:clippy --output_groups=+clippy_checks
