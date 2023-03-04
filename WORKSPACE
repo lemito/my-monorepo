@@ -1,6 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+'''
 http_archive(
     name = "io_bazel_rules_go",
     sha256 = "56d8c5a5c91e1af73eca71a6fab2ced959b67c86d12ba37feedb0a2dfea441a6",
@@ -18,6 +19,29 @@ http_archive(
         "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
     ],
 )
+
+# io_bazel_rules_go
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+load("//sources/higo:deps.bzl", "go_dependencies")
+go_dependencies()
+go_rules_dependencies()
+go_register_toolchains(go_version = "host") #version = "1.19.3"
+gazelle_dependencies()
+'''
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "ecba0f04f96b4960a5b250c8e8eeec42281035970aa8852dda73098274d14a1d",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
+    ],
+)
+
+load("//:deps.bzl", "go_dependencies")
+
+go_dependencies()
 
 #=================#
 #=====Java========#
@@ -77,28 +101,16 @@ http_archive(
 )
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+load("//:deps.bzl", "go_dependencies")
+
+# gazelle:repository_macro deps.bzl%go_dependencies
+go_dependencies()
 
 rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-# io_bazel_rules_go
-load("@io_bazel_rules_go//go:deps.bzl", "go_download_sdk", "go_register_toolchains", "go_rules_dependencies")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-
-go_download_sdk(
-    name = "go_sdk",
-    goarch = "amd64",
-    goos = "linux",
-    version = "1.17.7",
-)
-
-go_rules_dependencies()
-
-go_register_toolchains()
-
-gazelle_dependencies()
-
+'''
 http_archive(
     name = "io_bazel_rules_webtesting",
     #sha256 = "<version-specific-sha>",
@@ -110,6 +122,7 @@ http_archive(
 load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories")
 
 web_test_repositories()
+'''
 
 http_archive(
     name = "io_bazel_rules_closure",
@@ -174,11 +187,12 @@ load_j2cl_repo_deps()
 
 load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
 setup_j2cl_workspace()'''
+
 '''
 rules_kotlin_sha = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3"
 http_archive(
     name = "io_bazel_rules_kotlin",
-    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v1.7.1/rules_kotlin_release.tgz"],
+    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v1.5.1/rules_kotlin_release.tgz"],
     sha256 = rules_kotlin_sha,
 )
 

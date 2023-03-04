@@ -45,8 +45,8 @@ closure_js_library(
     srcs = ["greeter_proto.js"],
     suppress = ["useOfGoogProvide"],
     deps = [
-        ":person_proto",
         ":greeter_proto_soy",
+        ":person_proto",
         "//closure/goog/soy",
     ],
 )
