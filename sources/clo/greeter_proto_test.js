@@ -5,7 +5,7 @@ goog.require('io.bazel.rules.closure.GreeterProto');
 
 
 function testGreet() {
-  var greeter = new io.bazel.rules.closure.GreeterProto('Andy');
+  var greeter = new io.bazel.rules.closure.GreeterProto('Andy', 'Schtoike');
   greeter.greet();
   var body = document.body;
   goog.asserts.assert(body != null);

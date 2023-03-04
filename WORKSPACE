@@ -18,6 +18,7 @@ http_archive(
         "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.29.0/bazel-gazelle-v0.29.0.tar.gz",
     ],
 )
+
 #=================#
 #=====Java========#
 #=================#
@@ -148,106 +149,116 @@ git_repository(
     tag = "v20230206",
 )
 
-# Only needed if you want to run your tests on headless Chrome
-'''load("@io_bazel_rules_closure//closure:defs.bzl", "setup_web_test_repositories")
-setup_web_test_repositories(
-    chromium = True,
-)'''
+#=================#
+#=====j2cl========#
+#=================#
+'''rules_kotlin_sha = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3"
+http_archive(
+    name = "io_bazel_rules_kotlin",
+    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v1.7.1/rules_kotlin_release.tgz"],
+    sha256 = rules_kotlin_sha,
+)
 
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
+kotlin_repositories()
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
+kt_register_toolchains()
+http_archive(
+    name = "com_google_j2cl",
+    strip_prefix = "j2cl-master",
+    url = "https://github.com/google/j2cl/archive/master.zip",
+)
+
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+setup_j2cl_workspace()'''
+'''
+rules_kotlin_sha = "fd92a98bd8a8f0e1cdcb490b93f5acef1f1727ed992571232d33de42395ca9b3"
+http_archive(
+    name = "io_bazel_rules_kotlin",
+    urls = ["https://github.com/bazelbuild/rules_kotlin/releases/download/v1.7.1/rules_kotlin_release.tgz"],
+    sha256 = rules_kotlin_sha,
+)
+
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
+kotlin_repositories()
+load("@io_bazel_rules_kotlin//kotlin:core.bzl", "kt_register_toolchains")
+kt_register_toolchains()
+git_repository(
+    name = "com_google_j2cl",
+    branch = "master",
+    remote = "https://github.com/google/j2cl",
+)
+
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace", "j2cl_maven_import_external")
+setup_j2cl_workspace()
+
+http_archive(
+    name = "com_google_elemental2",
+    strip_prefix = "elemental2-master",
+    url = "https://github.com/google/elemental2/archive/master.zip",
+)
+
+load("@com_google_elemental2//build_defs:repository.bzl", "load_elemental2_repo_deps")
+
+load_elemental2_repo_deps()
+
+load("@com_google_elemental2//build_defs:workspace.bzl", "setup_elemental2_workspace")
+
+setup_elemental2_workspace()
+
+_MAVEN_CENTRAL_URLS = ["https://repo1.maven.org/maven2/"]
+
+j2cl_maven_import_external(
+    name = "org_checkerframework_checker_qual-j2cl",
+    annotation_only = True,
+    artifact = "org.checkerframework:checker-qual:2.5.3",
+    artifact_sha256= "7be622bd25208ccfbb9b634af8bd37aef54368403a1fdce84d908078330a189d",
+    server_urls = _MAVEN_CENTRAL_URLS,
+)
+
+j2cl_maven_import_external(
+    name = "com_google_errorprone_error_prone_annotations-j2cl",
+    annotation_only = True,
+    artifact = "com.google.errorprone:error_prone_annotations:2.4.0",
+    artifact_sha256= "5f2a0648230a662e8be049df308d583d7369f13af683e44ddf5829b6d741a228",
+    server_urls = _MAVEN_CENTRAL_URLS,
+)
+
+j2cl_maven_import_external(
+    name = "com_google_code_findbugs_jsr305-j2cl",
+    annotation_only = True,
+    artifact = "com.google.code.findbugs:jsr305:3.0.2",
+    server_urls = _MAVEN_CENTRAL_URLS,
+)
+
+j2cl_maven_import_external(
+    name = "com_google_j2objc_annotations-j2cl",
+    annotation_only = True,
+    artifact = "com.google.j2objc:j2objc-annotations:jar:1.3",
+    artifact_sha256= "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+    server_urls = _MAVEN_CENTRAL_URLS,
+)
+
+j2cl_maven_import_external(
+    name = "com_google_guava-j2cl",
+    artifact = "com.google.guava:guava-gwt:29.0-jre",
+    artifact_sha256= "39e899acd9f9f09da2871eaaab0024cae2506da24457c9542955ed754f653292",
+    server_urls = _MAVEN_CENTRAL_URLS,
+    deps = [
+        "@com_google_elemental2//:elemental2-promise-j2cl",
+        "@com_google_errorprone_error_prone_annotations-j2cl",
+        "@com_google_j2cl//:jsinterop-annotations-j2cl",
+        "@com_google_j2objc_annotations-j2cl",
+        "@org_checkerframework_checker_qual-j2cl",
+    ],
+)
+'''
 #=================#
 #=====Rust========#
 #=================#
-'''
-http_archive(
-    name = "platforms",
-    sha256 = "5308fc1d8865406a49427ba24a9ab53087f17f5266a7aabbfc28823f3916e1ca",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
-        "https://github.com/bazelbuild/platforms/releases/download/0.0.6/platforms-0.0.6.tar.gz",
-    ],
-)
-
-http_archive(
-    name = "rules_rust",
-    sha256 = "2466e5b2514772e84f9009010797b9cd4b51c1e6445bbd5b5e24848d90e6fb2e",
-    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.18.0/rules_rust-v0.18.0.tar.gz"],
-)
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repositories")
-rust_repositories()
-rules_rust_dependencies()
-rust_register_toolchains(
-    edition = "2021",
-    versions = [
-        "1.66.1",
-    ],
-)
-load("@rules_rust//crate_universe:defs.bzl", "crates_repository")
-crates_repository(
-    name = "crate_index",
-    cargo_lockfile = "//:Cargo.lock",
-    #lockfile = "//:Cargo.Bazel.lock",
-    manifests = [
-        "//:Cargo.toml",
-       # "//sources/hello-rust:Cargo.toml",
-    ],
-)
-load("@crate_index//:defs.bzl", "crate_repositories")
-crate_repositories()
-load("@docker_config//:pull.bzl", "container_pull")
-container_pull(
-    name = "base_debian11_cc",
-    digest = "sha256:2a0daf90a7deb78465bfca3ef2eee6e91ce0a5706059f05d79d799a51d339523",
-    registry = "gcr.io",
-    repository = "distroless/cc-debian11",
-)'''
-
-#=================#
-#=====Go==========#
-#=================#
-'''http_archive(
-    name = "io_bazel_rules_go",
-    sha256 = "56d8c5a5c91e1af73eca71a6fab2ced959b67c86d12ba37feedb0a2dfea441a6",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.37.0/rules_go-v0.37.0.zip",
-    ],
-)
-
-http_archive(
-    name = "bazel_gazelle",
-    sha256 = "448e37e0dbf61d6fa8f00aaa12d191745e14f07c31cabfa731f0c8e8a4f41b97",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.28.0/bazel-gazelle-v0.28.0.tar.gz",
-    ],
-)
-
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies", "go_download_sdk")
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-
-go_download_sdk(
-    name = "go_sdk",
-    goos = "linux",
-    goarch = "amd64",
-    version = "1.18.1",
-    sdks = {
-        # NOTE: In most cases the whole sdks attribute is not needed.
-        # There are 2 "common" reasons you might want it:
-        #
-        # 1. You need to use an modified GO SDK, or an unsupported version
-        #    (for example, a beta or release candidate)
-        #
-        # 2. You want to avoid the dependency on the index file for the
-        #    SHA-256 checksums. In this case, You can get the expected
-        #    filenames and checksums from https://go.dev/dl/
-        "linux_amd64": ("go1.18.1.linux-amd64.tar.gz", "b3b815f47ababac13810fc6021eb73d65478e0b2db4b09d348eefad9581a2334"),
-        "darwin_amd64": ("go1.18.1.darwin-amd64.tar.gz", "3703e9a0db1000f18c0c7b524f3d378aac71219b4715a6a4c5683eb639f41a4d"),
-    },
-)
-
-go_rules_dependencies()
-
-go_register_toolchains(go_version = "1.18.1")
-
-gazelle_dependencies()
-'''

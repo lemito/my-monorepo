@@ -24,7 +24,7 @@ import {Person} from 'sources/clo/person.proto';
 
   {call io.bazel.rules.closure.soy.greeter.greet}
     {param name kind="text"}
-      {$person.name}
+      {$person.name} {$person.lastname}
     {/param}
   {/call}
 {/template}

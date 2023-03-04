@@ -45,8 +45,8 @@ closure_js_library(
     srcs = ["greeter_proto.js"],
     suppress = ["useOfGoogProvide"],
     deps = [
-        ":greeter_proto_soy",
         ":person_proto",
+        ":greeter_proto_soy",
         "//closure/goog/soy",
     ],
 )
@@ -68,10 +68,11 @@ closure_js_test(
     timeout = "short",
     srcs = ["greeter_proto_test.js"],
     deps = [
-        ":greeter_proto_lib",
-        "//closure/goog/asserts",
-        "//closure/goog/testing:asserts",
-        "//closure/goog/testing:jsunit",
+        # ":greeter_proto_lib",
+        ":greeter_proto_bin",
+        # "//closure/goog/asserts",
+        # "//closure/goog/testing:asserts",
+        # "//closure/goog/testing:jsunit",
     ],
 )
 
