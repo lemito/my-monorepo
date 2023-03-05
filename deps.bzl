@@ -1,5 +1,13 @@
-load("@bazel_gazelle//:deps.bzl", "go_repository")
-
+load("@gazelle//:deps.bzl", "go_repository")
+'''
+    go_repository(
+        name = "com_github_golang_glog",
+        importpath = "github.com/golang/glog",
+        sum = "h1:/d3pCKDPWNnvIWe0vVUpNP32qc8U3PDVxySP/y360qE=",
+        # sum = "h1:atnLQ121W371wYYFawwYx1aEY2eUfs4l3J72wtgAwV4=",
+        version = "v1.1.0",
+    )
+'''
 def go_dependencies():
     go_repository(
         name = "com_github_cpuguy83_go_md2man_v2",
@@ -14,13 +22,6 @@ def go_dependencies():
         version = "v1.2.3",
     )
 
-    go_repository(
-        name = "com_github_golang_glog",
-        importpath = "github.com/golang/glog",
-        sum = "h1:/d3pCKDPWNnvIWe0vVUpNP32qc8U3PDVxySP/y360qE=",
-        # sum = "h1:atnLQ121W371wYYFawwYx1aEY2eUfs4l3J72wtgAwV4=",
-        version = "v1.1.0",
-    )
     go_repository(
         name = "com_github_inconshreveable_mousetrap",
         importpath = "github.com/inconshreveable/mousetrap",

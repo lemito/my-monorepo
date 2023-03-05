@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "cmd",
@@ -9,7 +9,7 @@ go_library(
     importpath = "github.com/lemito/my-monorepo/sources/higo/cmd",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/roll",
+        "//sources/higo/pkg/roll",
         "@com_github_spf13_cobra//:cobra",
         "@com_github_golang_glog//:glog",
     ],

@@ -1,5 +1,5 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@gazelle//:def.bzl", "gazelle")
 
 # gazelle:prefix .
 gazelle(name = "gazelle")
@@ -21,7 +21,7 @@ go_library(
     importpath = "github.com/lemito/my-monorepo/sources/higo",
     visibility = ["//visibility:private"],
     deps = [
-        "//cmd",
+        "//sources/higo/cmd",
         "@com_github_golang_glog//:glog",
     ],
 )
