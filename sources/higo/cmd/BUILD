@@ -6,10 +6,10 @@ go_library(
         "roll.go",
         "root.go",
     ],
-    importpath = "./cmd",
+    importpath = "//source/higo/cmd",
     visibility = ["//visibility:public"],
     deps = [
-        ".//pkg/roll",
+        "//source/higo/pkg/roll",
         "@com_github_spf13_cobra//:cobra",
         "@com_github_golang_glog//:glog",
     ],

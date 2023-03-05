@@ -21,7 +21,7 @@ go_library(
     importpath = ".",
     visibility = ["//visibility:private"],
     deps = [
-        "//cmd",
+        "//source/higo/cmd",
         "@com_github_golang_glog//:glog",
     ],
 )
