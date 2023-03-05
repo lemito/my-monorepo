@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	glog.Init("nil")
+	glog.Info("nil")
 	cmd.Execute()
 }

@@ -10,8 +10,8 @@ def go_dependencies():
     go_repository(
         name = "com_github_go_logr_logr",
         importpath = "github.com/go-logr/logr",
-        sum = "h1:QK40JKJyMdUDz+h+xvCsru/bJhvG0UxvePV0ufL/AcE=",
-        version = "v1.2.0",
+        sum = "h1:2DntVwHkVopvECVRSlL5PSo9eG+cAkDCuckLubN+rq0=",
+        version = "v1.2.3",
     )
 
     go_repository(
@@ -24,8 +24,8 @@ def go_dependencies():
     go_repository(
         name = "com_github_inconshreveable_mousetrap",
         importpath = "github.com/inconshreveable/mousetrap",
-        sum = "h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=",
-        version = "v1.0.0",
+        sum = "h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=",
+        version = "v1.1.0",
     )
     go_repository(
         name = "com_github_russross_blackfriday_v2",
@@ -36,8 +36,8 @@ def go_dependencies():
     go_repository(
         name = "com_github_spf13_cobra",
         importpath = "github.com/spf13/cobra",
-        sum = "h1:X+jTBEBqF0bHN+9cSMgmfuvv2VHJ9ezmFNf9Y/XstYU=",
-        version = "v1.5.0",
+        sum = "h1:o94oiPyS4KD1mPy2fmcYYHHfCxLqYjJOhGsCHFZtEzA=",
+        version = "v1.6.1",
     )
     go_repository(
         name = "com_github_spf13_pflag",
@@ -63,4 +63,10 @@ def go_dependencies():
         importpath = "gopkg.in/yaml.v2",
         sum = "h1:D8xgwECY7CYvx+Y2n4sBz93Jn9JRvxdiyyo8CTfuKaY=",
         version = "v2.4.0",
+    )
+    go_repository(
+        name = "in_gopkg_yaml_v3",
+        importpath = "gopkg.in/yaml.v3",
+        sum = "h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=",
+        version = "v3.0.1",
     )
