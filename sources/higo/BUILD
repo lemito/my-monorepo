@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# gazelle:prefix github.com/bazelbuild/rules_go/examples/basic-gazelle
+# gazelle:prefix .
 gazelle(name = "gazelle")
 
 # adding rule to update deps
@@ -18,7 +18,7 @@ gazelle(
 go_library(
     name = "basic-gazelle_lib",
     srcs = ["main.go"],
-    importpath = "github.com/bazelbuild/rules_go/examples/basic-gazelle",
+    importpath = ".",
     visibility = ["//visibility:private"],
     deps = [
         "//cmd",

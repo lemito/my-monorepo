@@ -6,10 +6,10 @@ go_library(
         "roll.go",
         "root.go",
     ],
-    importpath = "github.com/bazelbuild/rules_go/examples/basic-gazelle/cmd",
+    importpath = "./cmd",
     visibility = ["//visibility:public"],
     deps = [
-        "//pkg/roll",
+        ".//pkg/roll",
         "@com_github_spf13_cobra//:cobra",
         "@com_github_golang_glog//:glog",
     ],

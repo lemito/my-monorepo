@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/bazelbuild/rules_go/examples/basic-gazelle/cmd"
+	"./cmd"
 	"github.com/golang/glog"
 )
 

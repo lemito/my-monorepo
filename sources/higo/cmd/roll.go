@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/bazelbuild/rules_go/examples/basic-gazelle/pkg/roll"
+	"./pkg/roll"
 	"github.com/spf13/cobra"
 	"github.com/golang/glog"
 )
