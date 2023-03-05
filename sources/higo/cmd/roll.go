@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"../pkg/roll"
+	"github.com/lemito/my-monorepo/sources/higo/pkg/roll"
 	"github.com/spf13/cobra"
 	"github.com/golang/glog"
 )

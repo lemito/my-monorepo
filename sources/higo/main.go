@@ -1,7 +1,7 @@
 package main
 
 import (
-	"//cmd"
+	"github.com/lemito/my-monorepo/sources/higo/cmd"
 	"github.com/golang/glog"
 )
 

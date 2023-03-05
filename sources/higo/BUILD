@@ -18,10 +18,10 @@ gazelle(
 go_library(
     name = "basic-gazelle_lib",
     srcs = ["main.go"],
-    importpath = ".",
+    importpath = "github.com/lemito/my-monorepo/sources/higo",
     visibility = ["//visibility:private"],
     deps = [
-        "//source/higo/cmd",
+        "//cmd",
         "@com_github_golang_glog//:glog",
     ],
 )
