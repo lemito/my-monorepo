@@ -12,4 +12,9 @@ bazel_dep(name = "fmt", version = "9.1.0")
 
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "//:go.mod")
-use_repo(go_deps)
+go_deps.module(
+    path = "github.com/golang/glog",
+    sum = "h1:pfYeQZ3JWZoXTV5sFc986z3HTpwQs9At6P4ImfuP3NQ=",
+    version = "v1.1.0",
+)
+use_repo(go_deps, "com_github_golang_glog")

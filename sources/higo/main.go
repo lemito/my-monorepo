@@ -1,7 +1,7 @@
 package main
 
 import (
-	"/cmd"
+	"//cmd"
 	"github.com/golang/glog"
 )
 
