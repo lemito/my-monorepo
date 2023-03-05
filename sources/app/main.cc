@@ -1,6 +1,9 @@
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
+
+#include "absl/strings/str_join.h"
 
 int main()
 {
@@ -15,4 +18,11 @@ int main()
     for (int e : d) {
         std::cout << e << " ";
     }
+    std::cout << "\n";
+    std::vector<std::string> v = {"foo", "bar", "baz"};
+    std::string s = absl::StrJoin(v, "-");
+
+    std::cout << "Joined string: " << s << "\n";
+
+  return 0;
 }
