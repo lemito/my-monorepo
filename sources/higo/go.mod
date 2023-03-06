@@ -1,4 +1,4 @@
-module github.com/bazelbuild/rules_go/examples/basic-gazelle
+module github.com/lemito/my-monorepo/sources/higo/cmd
 
 go 1.19
 

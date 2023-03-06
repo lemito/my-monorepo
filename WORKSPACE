@@ -140,7 +140,16 @@ git_repository(
 #=================#
 #=====j2cl========#
 #=================#
+'''
+git_repository(
+    name = "com_google_j2cl",
+    remote = "https://github.com/google/j2cl",
+    branch = "master",
+)
 
-#=================#
-#=====Rust========#
-#=================#
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+setup_j2cl_workspace()
+'''
