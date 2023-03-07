@@ -39,17 +39,9 @@ load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
 
 rules_jvm_external_setup()
 
-load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("//:tools/deps.bzl", "java_dependencies")
 
-maven_install(
-    artifacts = [
-        # https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-        "com.squareup.okhttp3:okhttp:jar:4.10.0",
-    ],
-    repositories = [
-        "https://repo1.maven.org/maven2",
-    ],
-)
+java_dependencies()
 
 http_archive(
     name = "rules_proto",
@@ -66,7 +58,6 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-'''
 http_archive(
     name = "io_bazel_rules_webtesting",
     #sha256 = "<version-specific-sha>",
@@ -78,7 +69,7 @@ http_archive(
 load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories")
 
 web_test_repositories()
-'''
+
 
 http_archive(
   name = "com_google_absl",
@@ -138,8 +129,9 @@ git_repository(
 )
 
 #=================#
-#=====j2cl========#
+#=====angular=====#
 #=================#
+'''
 http_archive(
     name = "build_bazel_rules_nodejs",
     sha256 = "94070eff79305be05b7699207fbac5d2608054dd53e6109f7d00d923919ff45a",
@@ -294,3 +286,19 @@ k8s_defaults(
     ]),
     kind = "deployment",
 )
+'''
+
+# rules required by backend
+
+http_archive(
+    name = "io_bazel_rules_appengine",
+    strip_prefix = "rules_appengine-8099725bab2fa01ccd385fac2f78278ea8145a7a",
+    urls = ["https://github.com/bazelbuild/rules_appengine/archive/8099725bab2fa01ccd385fac2f78278ea8145a7a.tar.gz"],
+)
+
+load(
+    "@io_bazel_rules_appengine//appengine:java_appengine.bzl",
+    "java_appengine_repositories",
+)
+
+java_appengine_repositories()
