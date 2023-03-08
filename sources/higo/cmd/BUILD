@@ -10,7 +10,7 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//sources/higo/pkg/roll",
-        "@com_github_spf13_cobra//:cobra",
         "@com_github_golang_glog//:glog",
+        "@com_github_spf13_cobra//:cobra",
     ],
 )

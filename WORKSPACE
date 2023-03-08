@@ -70,24 +70,23 @@ load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories"
 
 web_test_repositories()
 
-
 http_archive(
-  name = "com_google_absl",
-  urls = ["https://github.com/abseil/abseil-cpp/archive/98eb410c93ad059f9bba1bf43f5bb916fc92a5ea.zip"],
-  strip_prefix = "abseil-cpp-98eb410c93ad059f9bba1bf43f5bb916fc92a5ea",
+    name = "com_google_absl",
+    strip_prefix = "abseil-cpp-98eb410c93ad059f9bba1bf43f5bb916fc92a5ea",
+    urls = ["https://github.com/abseil/abseil-cpp/archive/98eb410c93ad059f9bba1bf43f5bb916fc92a5ea.zip"],
 )
 
 http_archive(
-  name = "com_google_googletest",
-  urls = ["https://github.com/google/googletest/archive/011959aafddcd30611003de96cfd8d7a7685c700.zip"],
-  strip_prefix = "googletest-011959aafddcd30611003de96cfd8d7a7685c700",
+    name = "com_google_googletest",
+    strip_prefix = "googletest-011959aafddcd30611003de96cfd8d7a7685c700",
+    urls = ["https://github.com/google/googletest/archive/011959aafddcd30611003de96cfd8d7a7685c700.zip"],
 )
 
 http_archive(
     name = "com_github_google_benchmark",
-    urls = ["https://github.com/google/benchmark/archive/bf585a2789e30585b4e3ce6baf11ef2750b54677.zip"],
-    strip_prefix = "benchmark-bf585a2789e30585b4e3ce6baf11ef2750b54677",
     sha256 = "2a778d821997df7d8646c9c59b8edb9a573a6e04c534c01892a40aa524a7b68c",
+    strip_prefix = "benchmark-bf585a2789e30585b4e3ce6baf11ef2750b54677",
+    urls = ["https://github.com/google/benchmark/archive/bf585a2789e30585b4e3ce6baf11ef2750b54677.zip"],
 )
 
 http_archive(
@@ -101,9 +100,7 @@ http_archive(
 )
 
 load("@io_bazel_rules_closure//closure:repositories.bzl", "rules_closure_dependencies", "rules_closure_toolchains")
-
 rules_closure_dependencies()
-
 rules_closure_toolchains()
 
 #=================#
@@ -122,12 +119,13 @@ protobuf_deps()
 #=================#
 #=====Closure=====#
 #=================#
+'''
 git_repository(
     name = "com_google_javascript_closure_library",
     remote = "https://github.com/google/closure-library",
     tag = "v20230206",
 )
-
+'''
 #=================#
 #=====angular=====#
 #=================#

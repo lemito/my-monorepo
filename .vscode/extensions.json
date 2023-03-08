@@ -6,6 +6,8 @@
         "stackbuild.bazel-stack-vscode",
         "stackbuild.bazel-stack-vscode-cc",
         "stackbuild.bazel-stack-vscode-closure",
-        "golang.go"
+        "golang.go",
+        "antonkovalyov.soy",
+        "blodwynn.soysyntaxchecker"
     ]
 }

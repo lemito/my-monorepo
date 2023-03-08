@@ -3,6 +3,7 @@ A multiline comment as a string literal.
 
 Docstrings don't trigger the warning if they are first statements of a file or a function.
 """
+
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 def java_dependencies():

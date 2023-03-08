@@ -20,6 +20,7 @@ java_binary(
     srcs = glob(["src/main/java/**/*.java"]),
     main_class = "does.not.exist",
     deps = [
-        "@io_bazel_rules_appengine//appengine:javax.servlet.api",
+        #"@io_bazel_rules_appengine//appengine:javax.servlet.api",
+        "@maven//:javax_servlet_javax_servlet_api",
     ],
 )

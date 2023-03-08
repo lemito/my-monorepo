@@ -12,19 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-{namespace io.bazel.rules.closure.soy.protoGreeter}
+{namespace io.bazel.rules.closure.soy.globals}
 
-import {Person} from 'closure/templates/test/person.proto';
 
 /**
- * Greets a person.
+ * Shows a global variable.
  */
-{template .greet}
-  {@param person: Person}
-
-  {call io.bazel.rules.closure.soy.greeter.greet}
-    {param name kind="text"}
-      {$person.name}
-    {/param}
-  {/call}
+{template .hello}
+  {io.bazel.rules.closure.OMG_IM_A_GLOBAL}
 {/template}
