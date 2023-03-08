@@ -92,7 +92,7 @@ closure_js_library(
     suppress = ["useOfGoogProvide"],
     deps = [
         ":greeter_soy",
-        "//closure-library/goog/soy",
+        "//closure-library/closure/goog/soy:soy",
     ],
 )
 
@@ -103,7 +103,7 @@ closure_js_library(
     deps = [
         ":greeter_proto_soy",
         ":person_proto",
-        "//closure-library/goog/soy",
+        "//closure-library/closure/goog/soy",
     ],
 )
 
@@ -113,9 +113,9 @@ closure_js_test(
     srcs = ["greeter_test.js"],
     deps = [
         ":greeter_lib",
-        "//closure-library/goog/asserts",
-        "//closure-library/goog/testing:asserts",
-        "//closure-library/goog/testing:jsunit",
+        "//closure-library/closure/goog/asserts",
+        "//closure-library/closure/goog/testing:asserts",
+        "//closure-library/closure/goog/testing:jsunit",
     ],
 )
 
@@ -125,9 +125,9 @@ closure_js_test(
     srcs = ["greeter_proto_test.js"],
     deps = [
         ":greeter_proto_lib",
-        "//closure-library/goog/asserts",
-        "//closure-library/goog/testing:asserts",
-        "//closure-library/goog/testing:jsunit",
+        "//closure-library/closure/goog/asserts",
+        "//closure-library/closure/goog/testing:asserts",
+        "//closure-library/closure/goog/testing:jsunit",
     ],
 )
 
@@ -175,12 +175,12 @@ closure_js_test(
     srcs = ["globals_test.js"],
     deps = [
         ":globals_soy",
-        "//closure-library/goog/soy:soy", 
+        "//closure-library/closure/goog/soy:soy", 
        # "@com_google_javascript_closure_library//closure/goog/testing:asserts",
        # "@com_google_javascript_closure_library//closure/goog/testing:jsunit",
        # "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
-        "//closure-library/goog/testing:testsuite",
-        "//closure-library/goog/testing:asserts",
-        "//closure-library/goog/testing:jsunit",
+        "//closure-library/closure/goog/testing:testsuite",
+        "//closure-library/closure/goog/testing:asserts",
+        "//closure-library/closure/goog/testing:jsunit",
     ],
 )

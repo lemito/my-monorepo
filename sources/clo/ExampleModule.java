@@ -22,10 +22,6 @@ import com.google.template.soy.shared.restricted.SoyFunction;
 import java.util.List;
 import java.util.Set;
 
-/**
- * An example module providing a custom soy function and js source implementation.
- * See {@link https://github.com/google/closure-templates/blob/master/documentation/dev/plugins.md}
- */
 public class ExampleModule extends AbstractModule {
   /** {@inheritDoc} */
   @Override
