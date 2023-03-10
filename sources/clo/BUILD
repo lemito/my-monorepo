@@ -209,7 +209,7 @@ closure_js_binary(
 # =================================
 closure_js_library(
     name = "main",
-    srcs = ["hello.js"],
+    srcs = ["main.js"],
     suppress = [
         "closureDepMethodUsageChecks",
         "useOfGoogProvide",
@@ -227,7 +227,7 @@ closure_js_binary(
     compilation_level = "ADVANCED",
     #css = "//css:css",
 
-    entry_points = ["goog:io.bazel.rules.closure.soy.globals.main"],
+    entry_points = ["goog:app.main"],
     output_wrapper = "(function(){%output%}).call(this);",
     suppress_on_all_sources_in_transitive_closure = [
         "JSC_MISSING_REQUIRE_TYPE_IN_PROVIDES_FILE",
