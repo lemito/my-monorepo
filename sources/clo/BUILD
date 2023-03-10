@@ -1,4 +1,4 @@
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_java_template_library", "closure_js_library", "closure_js_proto_library", "closure_js_template_library", "closure_js_test", "closure_templates_plugin")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_java_template_library", "closure_js_library", "closure_js_proto_library", "closure_js_template_library", "closure_js_test", "closure_templates_plugin", "closure_js_binary")
 load("@io_bazel_rules_closure//closure/private:file_test.bzl", "file_test")
 
 closure_js_proto_library(
@@ -90,9 +90,10 @@ closure_js_library(
     name = "greeter_lib",
     srcs = ["greeter.js"],
     suppress = ["useOfGoogProvide"],
+    # no_closure_library = False,
     deps = [
         ":greeter_soy",
-        "@com_google_javascript_closure_library//closure/goog/soy",
+        "//closure/goog/soy",
     ],
 )
 
@@ -183,4 +184,56 @@ closure_js_test(
         "//closure/goog/testing:asserts",
         "//closure/goog/testing:jsunit",
     ],
+)
+
+closure_js_library(
+    name = "hello_lib",
+    srcs = ["hello.js"],
+    no_closure_library = True,
+)
+
+closure_js_binary(
+    name = "hello_bin",
+    deps = [":hello_lib"],
+    compilation_level = "ADVANCED",
+    language = "ECMASCRIPT5",
+)
+
+closure_js_binary(
+    name = "greeter_bin",
+    deps = [":greeter_lib"],
+    compilation_level = "ADVANCED",
+    language = "ECMASCRIPT5",
+)
+
+# =================================
+closure_js_library(
+    name = "main",
+    srcs = ["hello.js"],
+    suppress = [
+        "closureDepMethodUsageChecks",
+        "useOfGoogProvide",
+    ],
+   # deps = [":globals_soy"],
+)
+'''
+    debug = select({
+        ":production": False,
+        "//conditions:default": True,
+    }),
+'''
+closure_js_binary(
+    name = "bundle",
+    compilation_level = "ADVANCED",
+    #css = "//css:css",
+
+    entry_points = ["goog:io.bazel.rules.closure.soy.globals.main"],
+    output_wrapper = "(function(){%output%}).call(this);",
+    suppress_on_all_sources_in_transitive_closure = [
+        "JSC_MISSING_REQUIRE_TYPE_IN_PROVIDES_FILE",
+        "JSC_MISSING_REQUIRE_IN_PROVIDES_FILE",
+        "JSC_USE_OF_GOOG_PROVIDE",
+        "JSC_DEPRECATED_PROP_REASON",
+    ],
+    deps = [":globals_soy", ":main"],
 )
