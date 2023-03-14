@@ -111,9 +111,9 @@ func main() {
 		}))
 		return
 	}
-
-	http.ListenAndServe(":3333", r)
 	fmt.Println("localhost:3333")
+	http.ListenAndServe(":3333", r)
+	
 }
 
 func ListArticles(w http.ResponseWriter, r *http.Request) {
