@@ -1,3 +1,6 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+
 # Copyright 2016 The Closure Rules Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,10 +67,25 @@ java_library(
 proto_library(
     name = "build_info_proto",
     srcs = ["build_info.proto"],
+    visibility = ["//visibility:public"],
 )
 
 java_proto_library(
     name = "build_info_java_proto",
     visibility = ["//visibility:public"],
     deps = [":build_info_proto"],
+)
+
+go_proto_library(
+    name = "closure_go_proto",
+    importpath = "java/io/bazel/rules/closure",
+    proto = ":build_info_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "closure",
+    embed = [":closure_go_proto"],
+    importpath = "java/io/bazel/rules/closure",
+    visibility = ["//visibility:public"],
 )

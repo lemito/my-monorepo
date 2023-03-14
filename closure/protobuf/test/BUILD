@@ -1,3 +1,6 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+
 # Copyright 2018 The Closure Rules Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -133,4 +136,30 @@ closure_js_test(
         ":bat",
         "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
     ],
+)
+
+proto_library(
+    name = "io_bazel_rules_closure_protobuf_proto",
+    srcs = [
+        "bar.proto",
+        "bat.proto",
+        "baz.proto",
+        "foo.proto",
+    ],
+    visibility = ["//visibility:public"],
+    deps = ["@com_google_protobuf//:any_proto"],
+)
+
+go_proto_library(
+    name = "io_bazel_rules_closure_protobuf_go_proto",
+    importpath = "closure/protobuf/test",
+    proto = ":io_bazel_rules_closure_protobuf_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "test",
+    embed = [":io_bazel_rules_closure_protobuf_go_proto"],
+    importpath = "closure/protobuf/test",
+    visibility = ["//visibility:public"],
 )

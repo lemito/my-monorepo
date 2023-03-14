@@ -1,4 +1,7 @@
-load("@io_bazel_rules_closure//closure:defs.bzl", "closure_java_template_library", "closure_js_library", "closure_js_proto_library", "closure_js_template_library", "closure_js_test", "closure_templates_plugin", "closure_js_binary")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+load("@io_bazel_rules_closure//closure:defs.bzl", "closure_java_template_library", "closure_js_binary", "closure_js_library", "closure_js_proto_library", "closure_js_template_library", "closure_js_test", "closure_templates_plugin")
 load("@io_bazel_rules_closure//closure/private:file_test.bzl", "file_test")
 
 closure_js_proto_library(
@@ -128,17 +131,17 @@ closure_js_library(
 
 closure_js_binary(
     name = "hello_bin",
-    deps = [":hello_lib"],
     compilation_level = "ADVANCED",
     language = "ECMASCRIPT5",
+    deps = [":hello_lib"],
 )
 
 closure_js_binary(
     name = "greeter_bin",
-    deps = [":greeter_lib"],
     compilation_level = "ADVANCED",
     entry_points = ["goog:io.bazel.rules.closure.Greeter.prototype.greet"],
     language = "ECMASCRIPT5",
+    deps = [":greeter_lib"],
 )
 
 closure_js_binary(
@@ -153,4 +156,24 @@ closure_js_binary(
         "JSC_DEPRECATED_PROP_REASON",
     ],
     deps = [":greeter_lib"],
+)
+
+proto_library(
+    name = "io_bazel_rules_closure_soy_proto",
+    srcs = ["person.proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "io_bazel_rules_closure_soy_go_proto",
+    importpath = "sources/clo",
+    proto = ":io_bazel_rules_closure_soy_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "clo",
+    embed = [":io_bazel_rules_closure_soy_go_proto"],
+    importpath = "sources/clo",
+    visibility = ["//visibility:public"],
 )
