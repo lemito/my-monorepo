@@ -21,8 +21,9 @@ go_library(
     importpath = "github.com/lemito/my-monorepo/sources/higo",
     visibility = ["//visibility:private"],
     deps = [
-        "//sources/higo/cmd",
-        "@com_github_golang_glog//:glog",
+   #     "//sources/higo/cmd",
+   #     "@com_github_golang_glog//:glog",
+         "@com_github_go_chi_chi//:chi"
     ],
 )
 

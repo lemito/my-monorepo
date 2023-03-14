@@ -1,11 +1,14 @@
 package main
 
 import (
-	"github.com/lemito/my-monorepo/sources/higo/cmd"
-	"github.com/golang/glog"
-)
-
+	"fmt"
+	"net/http"
+	)
+	 
 func main() {
-	glog.Info("nil")
-	cmd.Execute()
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello World!")
+	})
+	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server started at localhost:8080")
 }

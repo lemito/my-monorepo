@@ -120,72 +120,6 @@ closure_js_test(
     ],
 )
 
-closure_js_test(
-    name = "greeter_proto_test",
-    timeout = "short",
-    srcs = ["greeter_proto_test.js"],
-    deps = [
-        ":greeter_proto_lib",
-        "//closure/goog/asserts",
-        "//closure/goog/testing:asserts",
-        "//closure/goog/testing:jsunit",
-    ],
-)
-
-closure_java_template_library(
-    name = "greeter_soy_java",
-    srcs = ["greeter.soy"],
-    java_package = "io.bazel.rules.closure.soy.greeter",
-)
-
-file_test(
-    name = "greeter_java_generated",
-    size = "small",
-    file = "GreeterSoyInfo.java",
-    regexp = "class GreeterSoyInfo",
-)
-
-closure_java_template_library(
-    name = "greeter2_soy_java",
-    srcs = ["greeter2.soy"],
-    java_package = "io.bazel.rules.closure.soy.greeter",
-    deps = [
-        ":greeter_soy",
-    ],
-)
-
-file_test(
-    name = "greeter2_java_generated",
-    size = "small",
-    file = "Greeter2SoyInfo.java",
-    regexp = "class Greeter2SoyInfo",
-)
-
-################################################################################
-# Globals variables can be defined in txt files
-
-closure_js_template_library(
-    name = "globals_soy",
-    srcs = ["globals.soy"],
-    globals = "globals.txt",
-)
-
-closure_js_test(
-    name = "globals_test",
-    timeout = "short",
-    srcs = ["globals_test.js"],
-    deps = [
-        ":globals_soy",
-        "//closure/goog/soy:soy", 
-       # "@com_google_javascript_closure_library//closure/goog/testing:asserts",
-       # "@com_google_javascript_closure_library//closure/goog/testing:jsunit",
-       # "@com_google_javascript_closure_library//closure/goog/testing:testsuite",
-        "//closure/goog/testing:testsuite",
-        "//closure/goog/testing:asserts",
-        "//closure/goog/testing:jsunit",
-    ],
-)
-
 closure_js_library(
     name = "hello_lib",
     srcs = ["hello.js"],
@@ -203,31 +137,14 @@ closure_js_binary(
     name = "greeter_bin",
     deps = [":greeter_lib"],
     compilation_level = "ADVANCED",
+    entry_points = ["goog:io.bazel.rules.closure.Greeter.prototype.greet"],
     language = "ECMASCRIPT5",
 )
 
-# =================================
-closure_js_library(
-    name = "main",
-    srcs = ["main.js"],
-    suppress = [
-        "closureDepMethodUsageChecks",
-        "useOfGoogProvide",
-    ],
-   # deps = [":globals_soy"],
-)
-'''
-    debug = select({
-        ":production": False,
-        "//conditions:default": True,
-    }),
-'''
 closure_js_binary(
     name = "bundle",
     compilation_level = "ADVANCED",
-    #css = "//css:css",
-
-    entry_points = ["goog:app.main"],
+    entry_points = ["goog:io.bazel.rules.closure.Greeter.prototype.greet"],
     output_wrapper = "(function(){%output%}).call(this);",
     suppress_on_all_sources_in_transitive_closure = [
         "JSC_MISSING_REQUIRE_TYPE_IN_PROVIDES_FILE",
@@ -235,5 +152,5 @@ closure_js_binary(
         "JSC_USE_OF_GOOG_PROVIDE",
         "JSC_DEPRECATED_PROP_REASON",
     ],
-    deps = [":globals_soy", ":main"],
+    deps = [":greeter_lib"],
 )

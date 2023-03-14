@@ -13,6 +13,7 @@
 // limitations under the License.
 
 goog.provide('io.bazel.rules.closure.Greeter');
+goog.provide('io.bazel.rules.closure.Greeter.prototype.greet');
 
 goog.require('goog.soy');
 goog.require('io.bazel.rules.closure.soy.greeter');
@@ -38,6 +39,7 @@ io.bazel.rules.closure.Greeter = function(name) {
 
 /**
  * Renders HTML greeting as document body.
+ * @export
  */
 io.bazel.rules.closure.Greeter.prototype.greet = function() {
   goog.soy.renderElement(goog.global.document.body,

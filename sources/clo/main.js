@@ -5,8 +5,8 @@ goog.provide("app.main");
  * @export
  */
 app.main = function () {
-  const App = goog.require("io.bazel.rules.closure.soy.globals.hello");
-  const app = new App();
-  app.render(document.body);
-  app.start();
-};
+    const App = goog.require("app.App");
+    const app = new App();
+    app.render(document.body);
+    app.start();
+  };
